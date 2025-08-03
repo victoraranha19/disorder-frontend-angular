@@ -27,11 +27,11 @@ export class CarteiraComponent implements OnInit {
   // #carteirasService = inject(CarteirasService);
 
   ngOnInit() {
-    this.nomeCarteira.set(this.carteira().nome);
+    this.nomeCarteira.set(this.carteira().titulo);
     this.contaCorrente.set(this.carteira().contaCorrente);
     this.contaPoupanca.set(this.carteira().contaPoupanca ?? 0);
     this.contaInvestimento.set(this.carteira().contaInvestimento ?? 0);
-    this.limiteTotalCredito.set(this.carteira().limiteTotalCredito);
+    this.limiteTotalCredito.set(this.carteira().limiteCreditoTotal);
     // this.limiteDisponivel.set(this.limiteTotalCredito() - (this.contaPoupanca() + this.contaInvestimento()));
   }
 

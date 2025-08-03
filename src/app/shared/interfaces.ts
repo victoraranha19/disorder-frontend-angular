@@ -13,9 +13,29 @@ export interface IUsuario {
 }
 
 export interface ICarteira {
-  nome: string;
+  id: number;
+  titulo: string;
   contaCorrente: number;
   contaPoupanca: number;
-  limiteTotalCredito: number;
   contaInvestimento: number;
+  limiteCreditoTotal: number;
+  idUsuario: number;
+  ativo: boolean;
+}
+
+export interface ITransacao {
+  id: number;
+  descricao: string;
+  valor: number;
+  data: Date;
+  tipo: ETipoTransacao; // 'C' | 'D'
+  idCategoria: number;
+  idCarteira: number;
+  idUsuario: number;
+  ativo: boolean;
+}
+
+export enum ETipoTransacao {
+  CREDITO = 'C',
+  DEBITO = 'D',
 }

@@ -35,7 +35,7 @@ export class CarteirasComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.#carteirasService.getCarteira().subscribe((data) => {
+    this.#carteirasService.listar().subscribe((data) => {
       this.carteiras = data;
     });
   }
@@ -47,12 +47,14 @@ export class CarteirasComponent implements OnInit {
 
   salvarCarteira(): void {
     if (this.carteiraForm.valid) {
-      const carteira: ICarteira = {
-        nome: this.carteiraForm.controls.nomeCarteira.value,
+      const carteira = {
+        titulo: this.carteiraForm.controls.nomeCarteira.value,
         contaCorrente: this.carteiraForm.controls.contaCorrente.value,
         contaPoupanca: this.carteiraForm.controls.contaPoupanca.value ?? 0,
-        limiteTotalCredito: this.carteiraForm.controls.limiteTotalCredito.value,
         contaInvestimento: this.carteiraForm.controls.contaInvestimento.value ?? 0,
+        limiteCreditoTotal: this.carteiraForm.controls.limiteTotalCredito.value,
+        idUsuario: 1,
+        ativo: true,
       };
       this.#carteirasService.addCarteira(carteira).subscribe(() => console.log('Carteira salva com sucesso!'));
       this.carteiraForm.reset();

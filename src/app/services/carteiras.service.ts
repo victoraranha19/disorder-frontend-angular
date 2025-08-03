@@ -1,20 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
+import { API_URL_BASE } from '../shared/constants';
 import { ICarteira } from '../shared/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class CarteirasService {
-  private readonly URI_CARTEIRAS = '/assets/carteiras.json';
+  private readonly ROTA_CARTEIRAS = '/carteiras';
 
   #httpClient = inject(HttpClient);
 
-  getCarteira() {
-    return this.#httpClient.get<ICarteira[]>(this.URI_CARTEIRAS);
+  listar() {
+    return this.#httpClient.get<ICarteira[]>(`${API_URL_BASE}${this.ROTA_CARTEIRAS}`);
   }
 
-  addCarteira(carteira: ICarteira) {
-    return this.#httpClient.post<ICarteira>(this.URI_CARTEIRAS, carteira);
+  addCarteira(carteira: Omit<ICarteira, 'id'>) {
+    return this.#httpClient.post<ICarteira>(`${API_URL_BASE}${this.ROTA_CARTEIRAS}`, carteira);
   }
 
   // editCarteira(carteira: ICarteira) {
