@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CarteiraComponent } from '../../components/carteira/carteira.component';
 import { CarteirasService } from '../../services/carteiras.service';
 import { ICarteira } from '../../shared/interfaces';
+import { Observable, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-carteiras',
@@ -35,9 +36,7 @@ export class CarteirasComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.#carteirasService.listar().subscribe((data) => {
-      this.carteiras = data;
-    });
+    this._atualizarCarteiras$().subscribe();
   }
 
   abrirModal(): void {
@@ -46,21 +45,29 @@ export class CarteirasComponent implements OnInit {
   }
 
   salvarCarteira(): void {
-    if (this.carteiraForm.valid) {
-      const carteira = {
-        titulo: this.carteiraForm.controls.nomeCarteira.value,
-        contaCorrente: this.carteiraForm.controls.contaCorrente.value,
-        contaPoupanca: this.carteiraForm.controls.contaPoupanca.value ?? 0,
-        contaInvestimento: this.carteiraForm.controls.contaInvestimento.value ?? 0,
-        limiteCreditoTotal: this.carteiraForm.controls.limiteTotalCredito.value,
-        idUsuario: 1,
-        ativo: true,
-      };
-      this.#carteirasService.addCarteira(carteira).subscribe(() => console.log('Carteira salva com sucesso!'));
-      this.carteiraForm.reset();
-      this.#dialogRef?.close(); // Fecha o modal após salvar
-    } else {
-      console.error('Formulário inválido');
-    }
+    const carteira = {
+      titulo: this.carteiraForm.controls.nomeCarteira.value,
+      contaCorrente: this.carteiraForm.controls.contaCorrente.value,
+      contaPoupanca: this.carteiraForm.controls.contaPoupanca.value ?? 0,
+      contaInvestimento: this.carteiraForm.controls.contaInvestimento.value ?? 0,
+      limiteCreditoTotal: this.carteiraForm.controls.limiteTotalCredito.value,
+      idUsuario: 1,
+      ativo: true,
+    };
+    this.#carteirasService
+      .criar(carteira)
+      .pipe(switchMap(() => this._atualizarCarteiras$()))
+      .subscribe(() => console.log('Carteira salva com sucesso!'));
+
+    this.carteiraForm.reset();
+    this.#dialogRef?.close(); // Fecha o modal após salvar
+  }
+
+  private _atualizarCarteiras$(): Observable<ICarteira[]> {
+    return this.#carteirasService.listar().pipe(
+      tap((data) => {
+        this.carteiras = data;
+      })
+    );
   }
 }

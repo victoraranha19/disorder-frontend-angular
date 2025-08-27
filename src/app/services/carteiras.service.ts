@@ -14,15 +14,19 @@ export class CarteirasService {
     return this.#httpClient.get<ICarteira[]>(`${API_URL_BASE}${this.ROTA_CARTEIRAS}`);
   }
 
-  addCarteira(carteira: Omit<ICarteira, 'id'>) {
+  carteiraPorId(id: string) {
+    return this.#httpClient.get<ICarteira>(`${API_URL_BASE}${this.ROTA_CARTEIRAS}/${id}`);
+  }
+
+  criar(carteira: Omit<ICarteira, 'id'>) {
     return this.#httpClient.post<ICarteira>(`${API_URL_BASE}${this.ROTA_CARTEIRAS}`, carteira);
   }
 
-  // editCarteira(carteira: ICarteira) {
-  //   return this.#httpClient.patch<ICarteira>(`${this.URI_CARTEIRAS}/${carteira.id}`, carteira);
-  // }
+  editar(carteira: ICarteira) {
+    return this.#httpClient.put<ICarteira>(`${API_URL_BASE}${this.ROTA_CARTEIRAS}/${carteira.id}`, carteira);
+  }
 
-  // removeCarteira(carteira: ICarteira) {
-  //   return this.#httpClient.delete<ICarteira>(`${this.URI_CARTEIRAS}/${carteira.id}`);
-  // }
+  remover(id: number) {
+    return this.#httpClient.delete<null>(`${API_URL_BASE}${this.ROTA_CARTEIRAS}/${id}`);
+  }
 }

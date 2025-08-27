@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   usuario: string = '';
 
   ngOnInit() {
-    this.#usuarioService.getUsuarios().subscribe((data) => {
+    this.#usuarioService.listar().subscribe((data) => {
       this.usuarios = data;
     });
   }
