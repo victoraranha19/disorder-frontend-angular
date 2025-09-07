@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { MenuComponent } from './components/menu/menu.component';
@@ -9,6 +9,4 @@ import { MenuComponent } from './components/menu/menu.component';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected readonly title = signal('disorder-angular-app');
-}
+export class App {}

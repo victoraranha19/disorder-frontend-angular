@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   #usuarioService = inject(UsuariosService);
 
   usuarios: IUsuario[] = [];
-  usuario: string = '';
+  usuario = '';
 
   ngOnInit() {
     this.#usuarioService.listar().subscribe((data) => {

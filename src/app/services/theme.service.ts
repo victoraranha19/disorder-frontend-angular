@@ -1,7 +1,7 @@
 // src/app/services/theme.service.ts
-import { Injectable, Renderer2, RendererFactory2, signal } from '@angular/core';
+import { inject, Injectable, Renderer2, RendererFactory2, signal } from '@angular/core';
 
-type TTheme = 'light-theme' | 'dark-theme'; // Define os tipos de tema possíveis
+export type TTheme = 'light-theme' | 'dark-theme'; // Define os tipos de tema possíveis
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,10 @@ export class ThemeService {
 
   currentTheme = signal<TTheme>('light-theme'); // Signal para o tema atual
 
-  constructor(private rendererFactory: RendererFactory2) {
-    this.renderer = this.rendererFactory.createRenderer(null, null);
+  readonly #rendererFactory = inject(RendererFactory2);
+
+  constructor() {
+    this.renderer = this.#rendererFactory.createRenderer(null, null);
     this._loadTheme(); // Carrega o tema ao iniciar o serviço
   }
 

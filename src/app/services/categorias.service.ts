@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+
 import { API_URL_BASE } from '../shared/constants';
-import { ICarteira, ICategoria } from '../shared/interfaces';
+import { ICategoria } from '../shared/interfaces';
 
 @Injectable({
   providedIn: 'root',

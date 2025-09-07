@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { first } from 'rxjs';
-import { IUsuario } from '../shared/interfaces';
+
 import { API_URL_BASE } from '../shared/constants';
+import { IUsuario } from '../shared/interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class UsuariosService {

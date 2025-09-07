@@ -13,6 +13,17 @@ describe('CarteiraComponent', () => {
 
     fixture = TestBed.createComponent(CarteiraComponent);
     component = fixture.componentInstance;
+
+    spyOn(component, 'carteira').and.returnValue({
+      titulo: 'Carteira Teste',
+      contaCorrente: 1000,
+      limiteCreditoTotal: 5000,
+      ativo: true,
+      contaInvestimento: 2000,
+      contaPoupanca: 1500,
+      idUsuario: 1,
+      id: 1,
+    });
     fixture.detectChanges();
   });
 

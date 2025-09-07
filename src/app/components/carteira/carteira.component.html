@@ -10,18 +10,26 @@
     <div style="padding: 8px 0"><mat-divider /></div>
 
     <ul>
-      <li *ngIf="contaCorrente()">
-        <span>Conta Corrente: {{ contaCorrente() | currency: 'BRL' }}</span>
-      </li>
-      <li *ngIf="contaPoupanca()">
-        <span>Conta Poupança: {{ contaPoupanca() | currency: 'BRL' }}</span>
-      </li>
-      <li *ngIf="contaInvestimento()">
-        <span>Conta Investimento: {{ contaInvestimento() | currency: 'BRL' }}</span>
-      </li>
-      <li *ngIf="limiteTotalCredito()">
-        <span> Limite de Crédito: {{ limiteDisponivel() | currency: 'BRL' }} de {{ limiteTotalCredito() | currency: 'BRL' }} </span>
-      </li>
+      @if (contaCorrente()) {
+        <li>
+          <span>Conta Corrente: {{ contaCorrente() | currency: 'BRL' }}</span>
+        </li>
+      }
+      @if (contaPoupanca()) {
+        <li>
+          <span>Conta Poupança: {{ contaPoupanca() | currency: 'BRL' }}</span>
+        </li>
+      }
+      @if (contaInvestimento()) {
+        <li>
+          <span>Conta Investimento: {{ contaInvestimento() | currency: 'BRL' }}</span>
+        </li>
+      }
+      @if (limiteTotalCredito()) {
+        <li>
+          <span>Limite de Crédito: {{ limiteDisponivel() | currency: 'BRL' }} de {{ limiteTotalCredito() | currency: 'BRL' }} </span>
+        </li>
+      }
     </ul>
   </mat-card-content>
 </mat-card>

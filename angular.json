@@ -69,9 +69,6 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
         "test": {
           "builder": "@angular/build:karma",
           "options": {
@@ -92,6 +89,9 @@
             ],
             "karmaConfig": "karma.conf.js"
           }
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
