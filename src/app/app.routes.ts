@@ -8,5 +8,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'carteiras', component: CarteirasComponent },
   { path: 'gastos', component: GastosComponent },
+  { path: '', redirectTo: 'carteiras', pathMatch: 'full' },
   { path: '**', redirectTo: 'carteiras', pathMatch: 'full' },
 ];
