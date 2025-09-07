@@ -6,20 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "lint": "ng lint"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
   },
   "private": true,
   "dependencies": {
@@ -39,6 +27,7 @@
     "@angular/build": "^20.2.2",
     "@angular/cli": "^20.2.2",
     "@angular/compiler-cli": "^20.2.0",
+    "@puppeteer/ng-schematics": "^0.7.0",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "20.2.0",
     "eslint": "^9.33.0",
@@ -51,6 +40,8 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "3.6.2",
     "typescript": "~5.9.2",
-    "typescript-eslint": "8.40.0"
+    "typescript-eslint": "8.40.0",
+    "puppeteer": "24.19.0",
+    "jasmine": "5.10.0"
   }
 }
