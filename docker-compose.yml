@@ -1,6 +1,0 @@
-services:
-  app:
-    image: victoraranha19/disorder-angular:1.1
-    container_name: app
-    ports:
-      - 80:4200

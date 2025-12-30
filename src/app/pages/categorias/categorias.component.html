@@ -1,0 +1,36 @@
+<div style="display: flex; flex-direction: column; gap: 16px">
+  <h2>Alocação em Categorias</h2>
+
+  <button mat-button (click)="abrirModal()">Nova categoria</button>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 16px">
+    @for (item of categorias(); track item) {
+      <app-categoria [categoria]="item" (editar)="abrirModal(item)" (excluir)="excluirCategoria(item)" />
+    }
+  </div>
+</div>
+
+<ng-template #templateModalCategoria>
+  <h2 matDialogTitle>Nova Categoria</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="categoriaForm" (ngSubmit)="salvarCarteira()">
+      <div style="display: flex; flex-direction: column">
+        <mat-form-field style="width: 100%">
+          <mat-label>Nome da Categoria</mat-label>
+          <input matInput placeholder="Saúde" [formControl]="categoriaForm.controls.titulo" required />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Gasto Mensal Planejado</mat-label>
+          <input matInput type="number" [formControl]="categoriaForm.controls.valorPlanejado" />
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-flat-button matDialogClose>Cancelar</button>
+    <button mat-flat-button (click)="salvarCarteira()">Salvar</button>
+  </mat-dialog-actions>
+</ng-template>

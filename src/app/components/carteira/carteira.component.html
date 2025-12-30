@@ -1,33 +1,33 @@
 <mat-card style="width: 300px">
   <mat-card-header style="align-items: center; justify-content: space-between">
-    <mat-card-title>{{ nomeCarteira() }}</mat-card-title>
+    <mat-card-title>{{ carteira().titulo }}</mat-card-title>
     <mat-card-actions style="padding: 0">
-      <button mat-icon-button (click)="editarCarteira()"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button (click)="removerCarteira()"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button (click)="editar.emit()"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button (click)="excluir.emit()"><mat-icon>delete</mat-icon></button>
     </mat-card-actions>
   </mat-card-header>
   <mat-card-content>
     <div style="padding: 8px 0"><mat-divider /></div>
 
     <ul>
-      @if (contaCorrente()) {
+      @if (carteira().contaCorrente) {
         <li>
-          <span>Conta Corrente: {{ contaCorrente() | currency: 'BRL' }}</span>
+          <span>Conta Corrente: {{ carteira().contaCorrente | currency: 'BRL' }}</span>
         </li>
       }
-      @if (contaPoupanca()) {
+      @if (carteira().contaPoupanca) {
         <li>
-          <span>Conta Poupança: {{ contaPoupanca() | currency: 'BRL' }}</span>
+          <span>Conta Poupança: {{ carteira().contaPoupanca | currency: 'BRL' }}</span>
         </li>
       }
-      @if (contaInvestimento()) {
+      @if (carteira().contaInvestimento) {
         <li>
-          <span>Conta Investimento: {{ contaInvestimento() | currency: 'BRL' }}</span>
+          <span>Conta Investimento: {{ carteira().contaInvestimento | currency: 'BRL' }}</span>
         </li>
       }
-      @if (limiteTotalCredito()) {
+      @if (carteira().limiteCreditoTotal) {
         <li>
-          <span>Limite de Crédito: {{ limiteDisponivel() | currency: 'BRL' }} de {{ limiteTotalCredito() | currency: 'BRL' }} </span>
+          <span>Limite de Crédito: {{ carteira().limiteCreditoTotal | currency: 'BRL' }} </span>
         </li>
       }
     </ul>

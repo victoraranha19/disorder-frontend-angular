@@ -1,0 +1,36 @@
+<div style="display: flex; flex-direction: column; gap: 16px">
+  <h2>Transações de {{ mesSelecionado | date : "MMMM" : "-03:00" : "pt-BR" | titlecase }}</h2>
+
+  <button mat-button (click)="abrirModal()">Novo gasto</button>
+
+  <!--<div style="display: flex; flex-wrap: wrap; gap: 16px">
+    @for (item of transacoes(); track item) {
+      <app-carteira [carteira]="item" (editar)="abrirModal(item)" (excluir)="excluirGasto(item)" />
+    }
+  </div>-->
+</div>
+
+<ng-template #templateModalGasto>
+  <h2 matDialogTitle>Nova Carteira</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="gastoForm" (ngSubmit)="salvarGasto()">
+      <div style="display: flex; flex-direction: column">
+        <mat-form-field style="width: 100%">
+          <mat-label>Descrição do gasto</mat-label>
+          <input matInput placeholder="Ingresso do cinema" [formControl]="gastoForm.controls.descricao" required />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Valor total</mat-label>
+          <input matInput type="number" [formControl]="gastoForm.controls.valor" required />
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-flat-button matDialogClose>Cancelar</button>
+    <button mat-flat-button (click)="salvarGasto()">Salvar</button>
+  </mat-dialog-actions>
+</ng-template>
