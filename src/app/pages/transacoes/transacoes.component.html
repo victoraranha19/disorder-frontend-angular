@@ -5,7 +5,7 @@
     <div style="display: flex; flex-direction: column;">
       <button mat-fab extended (click)="abrirModal(undefined, ETipoTransacao.CREDITO)">
         <mat-icon>trending_up</mat-icon>
-        <mat-icon>payments</mat-icon>
+        <mat-icon>paid</mat-icon>
         Entrada
       </button>
       <table mat-table [dataSource]="ganhos()">
@@ -51,7 +51,7 @@
     <div style="display: flex; flex-direction: column;">
       <button mat-fab extended (click)="abrirModal()">
         <mat-icon>trending_down</mat-icon>
-        <mat-icon>payments</mat-icon>
+        <mat-icon>paid</mat-icon>
         Saída
       </button>
       <table mat-table [dataSource]="gastos()">
@@ -102,17 +102,19 @@
   <mat-dialog-content>
     <form [formGroup]="gastoForm" (ngSubmit)="salvarGasto()">
       <div style="display: flex; flex-direction: column">
-        <mat-form-field>
-          <mat-label>Data da Transasação</mat-label>
-          <input matInput [matDatepicker]="picker" required>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        <div style="display: flex; justify-content: space-between; gap: 16px">
+          <mat-form-field>
+            <mat-label>Data da Transasação</mat-label>
+            <input matInput [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Valor total</mat-label>
-          <input matInput type="number" [formControl]="gastoForm.controls.valor" required />
-        </mat-form-field>
+          <mat-form-field>
+            <mat-label>Valor total</mat-label>
+            <input matInput type="number" [formControl]="gastoForm.controls.valor" required />
+          </mat-form-field>
+        </div>
 
         <mat-form-field style="width: 100%">
           <mat-label>Descrição</mat-label>

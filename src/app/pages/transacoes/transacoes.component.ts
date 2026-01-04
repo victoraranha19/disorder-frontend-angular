@@ -1,23 +1,19 @@
-import { Component, inject, LOCALE_ID, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { Component, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import localePt from '@angular/common/locales/pt';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Observable, switchMap, tap } from 'rxjs';
 
 import { ETipoTransacao, ICarteira, ICategoria, ITransacao } from '../../shared/interfaces';
 import { TransacoesService } from '../../services/transacoes.service';
 import { CarteirasService } from '../../services/carteiras.service';
 import { CategoriasService } from '../../services/categorias.service';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-
-registerLocaleData(localePt);
 
 @Component({
   selector: 'app-transacoes',
@@ -34,10 +30,6 @@ registerLocaleData(localePt);
     MatInputModule,
     MatIconModule,
     MatTableModule,
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'pt-PT' },
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-PT' },
   ],
   templateUrl: './transacoes.component.html',
   styleUrl: './transacoes.component.scss',

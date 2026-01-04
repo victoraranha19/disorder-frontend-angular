@@ -2,34 +2,44 @@
   <mat-card-header style="align-items: center; justify-content: space-between">
     <mat-card-title>{{ carteira().titulo }}</mat-card-title>
     <mat-card-actions style="padding: 0">
-      <button mat-icon-button (click)="editar.emit()"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button (click)="excluir.emit()"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button (click)="editar.emit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="excluir.emit()">
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card-header>
   <mat-card-content>
-    <div style="padding: 8px 0"><mat-divider /></div>
+    <div style="padding: 8px 0">
+      <mat-divider />
+    </div>
 
-    <ul>
+    <mat-list>
       @if (carteira().contaCorrente) {
-        <li>
-          <span>Conta Corrente: {{ carteira().contaCorrente | currency: 'BRL' }}</span>
-        </li>
+        <mat-list-item>
+          <span matListItemTitle>Conta Corrente</span>
+          <span matListItemLine>{{ carteira().contaCorrente | currency: 'BRL' }}</span>
+        </mat-list-item>
       }
       @if (carteira().contaPoupanca) {
-        <li>
-          <span>Conta Poupança: {{ carteira().contaPoupanca | currency: 'BRL' }}</span>
-        </li>
+        <mat-list-item>
+          <span matListItemTitle>Conta Poupança</span>
+          <span matListItemLine>{{ carteira().contaPoupanca | currency: 'BRL' }}</span>
+        </mat-list-item>
       }
       @if (carteira().contaInvestimento) {
-        <li>
-          <span>Conta Investimento: {{ carteira().contaInvestimento | currency: 'BRL' }}</span>
-        </li>
+        <mat-list-item>
+          <span matListItemTitle>Conta Investimento</span>
+          <span matListItemLine>{{ carteira().contaInvestimento | currency: 'BRL' }}</span>
+        </mat-list-item>
       }
       @if (carteira().limiteCreditoTotal) {
-        <li>
-          <span>Limite de Crédito: {{ carteira().limiteCreditoTotal | currency: 'BRL' }} </span>
-        </li>
+        <mat-list-item>
+          <span matListItemTitle>Limite de Crédito</span>
+          <span matListItemLine>{{ carteira().limiteCreditoTotal | currency: 'BRL' }}</span>
+        </mat-list-item>
       }
-    </ul>
+    </mat-list>
   </mat-card-content>
 </mat-card>
