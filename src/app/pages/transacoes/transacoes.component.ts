@@ -45,7 +45,7 @@ export class TransacoesComponent implements OnInit {
   #categoriasService = inject(CategoriasService);
 
   private readonly _hoje = new Date();
-  mesSelecionado = new Date(this._hoje.getFullYear(), this._hoje.getMonth());
+  mesSelecionado: Date | null = null;
   #dialogRef?: MatDialogRef<HTMLDivElement>;
   ganhos = signal<ITransacao[]>([]);
   gastos = signal<ITransacao[]>([]);
@@ -58,6 +58,7 @@ export class TransacoesComponent implements OnInit {
     valor: new FormControl<number>(0, { nonNullable: true }),
     tipo: new FormControl<ETipoTransacao>(ETipoTransacao.DEBITO, { nonNullable: true }),
     dataTransacao: new FormControl<Date>(this._hoje, { nonNullable: true }),
+    parcelas: new FormControl<number>(1, { nonNullable: true }),
     idCarteira: new FormControl<number | null>(null),
     idCategoria: new FormControl<number | null>(null),
   });
@@ -85,6 +86,7 @@ export class TransacoesComponent implements OnInit {
       this.gastoForm.controls.valor.setValue(gasto.valor);
       this.gastoForm.controls.descricao.setValue(gasto.descricao);
       this.gastoForm.controls.dataTransacao.setValue(gasto.dataTransacao);
+      this.gastoForm.controls.parcelas.setValue(gasto.parcelas);
       this.gastoForm.controls.idCarteira.setValue(gasto.idCarteira ?? null);
       this.gastoForm.controls.idCategoria.setValue(gasto.idCategoria ?? null);
     }
@@ -117,6 +119,7 @@ export class TransacoesComponent implements OnInit {
       valor: this.gastoForm.controls.valor.value,
       tipo: this.gastoForm.controls.tipo.value,
       dataTransacao: this.gastoForm.controls.dataTransacao.value,
+      parcelas: this.gastoForm.controls.parcelas.value,
       idCategoria: categoria?.id,
       tituloCategoria: categoria?.titulo,
       idCarteira: carteira?.id,
@@ -138,6 +141,7 @@ export class TransacoesComponent implements OnInit {
       valor: this.gastoForm.controls.valor.value,
       tipo: this.gastoForm.controls.tipo.value,
       dataTransacao: this.gastoForm.controls.dataTransacao.value,
+      parcelas: this.gastoForm.controls.parcelas.value,
       idCategoria: categoria?.id,
       tituloCategoria: categoria?.titulo,
       idCarteira: carteira?.id,

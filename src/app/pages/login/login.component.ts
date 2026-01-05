@@ -1,11 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { UsuariosService } from '../../services/usuarios.service';
-import { IUsuario } from '../../shared/interfaces';
+import { IUsuarioLogin, IUsuarioRegistro } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -14,22 +14,31 @@ import { IUsuario } from '../../shared/interfaces';
   imports: [FormsModule, ReactiveFormsModule, MatInputModule, MatButtonModule, MatTabsModule],
   providers: [UsuariosService],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   #usuariosService = inject(UsuariosService);
 
-  usuarios: IUsuario[] = [];
-  usuario = '';
-
-  ngOnInit() {
-    this.#usuariosService.listar().subscribe((data) => {
-      this.usuarios = data;
-    });
-  }
+  formUsuario = new FormGroup({
+    login: new FormControl<string>(''),
+    senha: new FormControl<string>(''),
+    nomeCompleto: new FormControl<string>(''),
+    email: new FormControl<string>(''),
+  });
 
   logar() {
-    this.#usuariosService.logar();
+    const usuario: IUsuarioLogin = {
+      login: this.formUsuario.controls.login.value ?? '',
+      senha: this.formUsuario.controls.senha.value ?? '',
+    };
+    this.#usuariosService.logar$(usuario).subscribe();
   }
+
   criarConta() {
-    this.#usuariosService.logar();
+    const usuario: IUsuarioRegistro = {
+      login: this.formUsuario.controls.login.value ?? '',
+      senha: this.formUsuario.controls.senha.value ?? '',
+      email: this.formUsuario.controls.email.value ?? '',
+      nomeCompleto: this.formUsuario.controls.nomeCompleto.value ?? '',
+    };
+    this.#usuariosService.registrar$(usuario).subscribe();
   }
 }

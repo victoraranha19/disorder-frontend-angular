@@ -9,13 +9,26 @@
 export interface IUsuario {
   id: number;
   username: string;
-  password: string;
+  senha: string;
   nomeCompleto: string;
   email: string;
   telefone: string;
   chavePix: string;
   idAcessor?: number;
   ativo: boolean;
+}
+export interface IUsuarioRegistro {
+  login: string;
+  senha: string;
+  nomeCompleto: string;
+  email: string;
+}
+export interface IUsuarioLogin {
+  login: string;
+  senha: string;
+}
+export interface IUsuarioLogado {
+  token: string;
 }
 
 export interface ICategoria {
@@ -43,6 +56,7 @@ export interface ITransacao {
   valor: number;
   dataTransacao: Date;
   tipo: ETipoTransacao; // 'C' | 'D'
+  parcelas: number;
   idCategoria?: number;
   tituloCategoria?: string;
   idCarteira?: number;

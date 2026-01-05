@@ -14,6 +14,14 @@ describe('CategoriaComponent', () => {
 
     fixture = TestBed.createComponent(CategoriaComponent);
     component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('categoria', {
+      id: 1,
+      titulo: 'titulo',
+      valorPlanejado: 0,
+      idUsuario: 1,
+      ativo: true
+    });
     fixture.detectChanges();
   });
 

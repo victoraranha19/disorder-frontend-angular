@@ -14,7 +14,7 @@ describe('CarteiraComponent', () => {
     fixture = TestBed.createComponent(CarteiraComponent);
     component = fixture.componentInstance;
 
-    spyOn(component, 'carteira').and.returnValue({
+    fixture.componentRef.setInput('carteira', {
       titulo: 'Carteira Teste',
       contaCorrente: 1000,
       limiteCreditoTotal: 5000,

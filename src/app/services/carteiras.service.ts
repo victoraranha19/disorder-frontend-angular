@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-
-import { API_URL_BASE } from '../shared/constants';
+import { Injectable, signal } from '@angular/core';
 import { ICarteira } from '../shared/interfaces';
 import { Observable, of } from 'rxjs';
 
@@ -27,7 +24,11 @@ export class CarteirasService {
 
   private _carteiras = signal<ICarteira[]>([]);
   public listar(): Observable<ICarteira[]> {
-    return of(this._carteiras().filter(c => c.ativo).sort((a,b) => a.id - b.id));
+    return of(
+      this._carteiras()
+        .filter((c) => c.ativo)
+        .sort((a, b) => a.id - b.id)
+    );
   }
   public criar(carteira: Omit<ICarteira, 'id'>): Observable<number> {
     const newId = this._carteiras().length + 1;

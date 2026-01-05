@@ -1,8 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-
-import { API_URL_BASE } from '../shared/constants';
-import { ICarteira, ICategoria } from '../shared/interfaces';
+import { Injectable, signal } from '@angular/core';
+import { ICategoria } from '../shared/interfaces';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

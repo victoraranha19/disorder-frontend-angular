@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { UsuariosService } from '../../services/usuarios.service';
-import { of } from 'rxjs';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
@@ -13,8 +12,7 @@ describe('LoginComponent', () => {
   let usuariosSSpy: jasmine.SpyObj<UsuariosService>;
 
   beforeEach(async () => {
-    usuariosSSpy = jasmine.createSpyObj('UsuariosService', ['listar', 'logar']);
-    usuariosSSpy.listar.and.returnValue(of([]));
+    usuariosSSpy = jasmine.createSpyObj('UsuariosService', ['registrar$', 'logar$']);
 
     await TestBed.configureTestingModule({
       imports: [LoginComponent],
