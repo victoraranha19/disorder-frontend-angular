@@ -31,7 +31,7 @@ export class UsuariosService {
     return this.#httpClient.post<IUsuarioLogado>(`${API_URL_BASE}${this.ROTA_USUARIOS}/login`, usuario).pipe(
       tap((usuarioLogado) => {
         localStorage.setItem('token', JSON.stringify(usuarioLogado));
-        void this.#router.navigate([this.#activatedRoute.snapshot.queryParams['returnUrl']]);
+        void this.#router.navigate([this.#activatedRoute.snapshot.queryParams['returnUrl'] ?? '/']);
       }),
       catchError((err) => {
         console.error(err);
@@ -40,10 +40,6 @@ export class UsuariosService {
       }),
       tap(() => this.usuarioLogado.set(this._verificaUsuarioLogado()))
     );
-  }
-
-  public remover$(id: number): Observable<null> {
-    return this.#httpClient.delete(`${API_URL_BASE}${this.ROTA_USUARIOS}/${id}`).pipe(switchMap(() => of(null)));
   }
 
   public deslogar(): void {
