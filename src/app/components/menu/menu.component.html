@@ -6,7 +6,7 @@
         <div style="padding: 16px 0">
           <mat-divider />
         </div>
-        <a mat-list-item [routerLink]="['/', 'home', 'transacoes']">
+        <a mat-list-item [routerLink]="['/', 'home', 'resumo']">
           <div class="list-item">
             <mat-icon>timeline</mat-icon>
             <span>Resumo</span>
@@ -49,8 +49,8 @@
         </a>
         <a mat-list-item href="javascript:void(0)" (click)="irParaLogin()">
           <div class="list-item">
-            <mat-icon>{{ usuarioLogado() ? 'logout' : 'login' }}</mat-icon>
-            <span>{{ usuarioLogado() ? 'Logout' : 'Login' }}</span>
+            <mat-icon>logout</mat-icon>
+            <span>logout</span>
           </div>
         </a>
       </mat-nav-list>

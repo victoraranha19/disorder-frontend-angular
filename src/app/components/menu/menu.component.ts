@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -22,16 +22,16 @@ export class MenuComponent {
   #theme = inject(ThemeService);
   #usuarioService = inject(UsuariosService);
 
-  usuarioLogado = computed<boolean>(() => this.#usuarioService.usuarioLogado());
+  constructor() {
+    this.#theme.loadTheme();
+  }
 
   toggleTheme() {
     this.#theme.toggleTheme();
   }
 
   irParaLogin() {
-    if (this.usuarioLogado()) {
-      this.#usuarioService.deslogar();
-      this.#router.navigate(['/', 'login']);
-    }
+    this.#usuarioService.deslogar();
+    this.#router.navigate(['/', 'login']);
   }
 }

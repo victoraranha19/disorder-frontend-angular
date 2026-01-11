@@ -46,6 +46,11 @@ export interface ICarteira {
   idUsuario: number;
 }
 
+export interface ITransacoes {
+  totalPaginas: number;
+  totalTransacoes: number;
+  transacoes: ITransacao[];
+}
 export interface ITransacao {
   id: number;
   descricao: string;

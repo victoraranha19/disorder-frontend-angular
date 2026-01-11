@@ -8,7 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Observable, switchMap, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 
 import { ICarteira, ICategoria, ITransacao } from '../../shared/interfaces';
 import { TransacoesService } from '../../services/transacoes.service';
@@ -48,8 +48,8 @@ export class TransacoesComponent implements OnInit {
   private readonly _hoje = new Date();
   mesSelecionado: Date = new Date(this._hoje);
   #dialogRef?: MatDialogRef<HTMLDivElement>;
-  ganhos = signal<ITransacao[]>([]);
-  gastos = signal<ITransacao[]>([]);
+  receitas = signal<ITransacao[]>([]);
+  despesas = signal<ITransacao[]>([]);
   carteirasOptions = signal<ICarteira[]>([]);
   categoriasOptions = signal<ICategoria[]>([]);
 
@@ -65,7 +65,7 @@ export class TransacoesComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this._atualizarGastos$().subscribe();
+    this._listarTransacoes$().subscribe();
 
     this.#carteirasService.listar$().subscribe((data) => {
       this.carteirasOptions.set(data);
@@ -110,7 +110,7 @@ export class TransacoesComponent implements OnInit {
   public excluirGasto(gasto: ITransacao): void {
     this.#gastosService
       .remover$(gasto.id)
-      .pipe(switchMap(() => this._atualizarGastos$()))
+      .pipe(switchMap(() => this._listarTransacoes$()))
       .subscribe();
   }
 
@@ -130,7 +130,7 @@ export class TransacoesComponent implements OnInit {
 
     this.#gastosService
       .criar$(gasto)
-      .pipe(switchMap(() => this._atualizarGastos$()))
+      .pipe(switchMap(() => this._listarTransacoes$()))
       .subscribe();
   }
 
@@ -161,15 +161,15 @@ export class TransacoesComponent implements OnInit {
 
     this.#gastosService
       .editar$(gasto)
-      .pipe(switchMap(() => this._atualizarGastos$()))
+      .pipe(tap(() => this._listarTransacoes$()))
       .subscribe();
   }
 
-  private _atualizarGastos$(): Observable<ITransacao[]> {
-    return this.#gastosService.listar$({ pagina: 1, itensPorPagina: 20, mesAno: '012026' }, 'entradas').pipe(
-      tap((data) => this.gastos.set(data)),
-      switchMap(() => this.#gastosService.listar$({ pagina: 1, itensPorPagina: 20, mesAno: '012026' }, 'saidas')),
-      tap((data) => this.gastos.set(data))
+  private _listarTransacoes$() {
+    return this.#gastosService.listar$({ pagina: 0, itensPorPagina: 20, mesAno: '012026' }, 'entradas').pipe(
+      tap((data) => this.receitas.set(data.transacoes)),
+      switchMap(() => this.#gastosService.listar$({ pagina: 0, itensPorPagina: 20, mesAno: '012026' }, 'saidas')),
+      tap((data) => this.despesas.set(data.transacoes))
     );
   }
 }

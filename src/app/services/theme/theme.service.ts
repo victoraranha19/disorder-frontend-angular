@@ -7,7 +7,7 @@ export type TTheme = 'theme-light' | 'theme-dark'; // Define os tipos de tema po
   providedIn: 'root',
 })
 export class ThemeService {
-  private readonly THEME_KEY = 'app-theme'; // Chave para armazenar no localStorage
+  public readonly THEME_KEY = 'app-theme'; // Chave para armazenar no localStorage
   private _themeLoaded = signal(false);
 
   currentTheme = signal<TTheme>('theme-light'); // Signal para o tema atual
@@ -24,15 +24,8 @@ export class ThemeService {
 
     if (savedTheme === 'theme-dark') {
       this.setTheme('theme-dark');
-    } else if (savedTheme === 'theme-light') {
-      this.setTheme('theme-light');
     } else {
-      // Se não houver preferência salva, verifica a preferência do sistema
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        this.setTheme('theme-dark'); // Aplica tema escuro se o sistema preferir
-      } else {
-        this.setTheme('theme-light'); // Aplica tema claro por padrão ou se o sistema preferir
-      }
+      this.setTheme('theme-light');
     }
     this._themeLoaded.set(true);
   }
@@ -63,7 +56,7 @@ export class ThemeService {
 
   /**
    * Salva a preferência do tema no localStorage.
-   * @param theme 'light' ou 'dark'.
+   * @param theme tema claro ou escuro.
    */
   private _saveTheme(theme: TTheme): void {
     localStorage.setItem(this.THEME_KEY, theme);

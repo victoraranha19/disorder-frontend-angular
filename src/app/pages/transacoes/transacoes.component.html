@@ -8,10 +8,10 @@
         <mat-icon>paid</mat-icon>
         Entrada
       </button>
-      <table mat-table [dataSource]="ganhos()">
+      <table mat-table [dataSource]="receitas()">
         <ng-container matColumnDef="data">
           <th mat-header-cell *matHeaderCellDef> Data</th>
-          <td mat-cell *matCellDef="let element"> {{ element.dataTransacao | date : 'dd/MM/y' }}</td>
+          <td mat-cell *matCellDef="let element"> {{ element.dataTransacao | date : 'dd/MM/yyyy' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="valor">
@@ -24,9 +24,13 @@
           <td mat-cell *matCellDef="let element"> {{ element.descricao }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="tags">
-          <th mat-header-cell *matHeaderCellDef> Tags</th>
-          <td mat-cell *matCellDef="let element"> {{ element.idCategoria }} {{ element.idCarteira }}</td>
+        <ng-container matColumnDef="carteira">
+          <th mat-header-cell *matHeaderCellDef> Carteira</th>
+          <td mat-cell *matCellDef="let element"> {{ element.tituloCarteira }}</td>
+        </ng-container>
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef> Categoria</th>
+          <td mat-cell *matCellDef="let element"> {{ element.tituloCategoria }}</td>
         </ng-container>
 
         <ng-container matColumnDef="acoes">
@@ -43,8 +47,8 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['data', 'valor', 'descricao', 'tags', 'acoes']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['data', 'valor', 'descricao', 'tags', 'acoes'];"></tr>
+        <tr mat-header-row *matHeaderRowDef="['data', 'valor', 'descricao', 'carteira', 'categoria', 'acoes']"></tr>
+        <tr mat-row *matRowDef="let _; columns: ['data', 'valor', 'descricao', 'carteira', 'categoria', 'acoes'];"></tr>
       </table>
     </div>
 
@@ -54,7 +58,7 @@
         <mat-icon>paid</mat-icon>
         Saída
       </button>
-      <table mat-table [dataSource]="gastos()">
+      <table mat-table [dataSource]="despesas()">
         <ng-container matColumnDef="data">
           <th mat-header-cell *matHeaderCellDef> Data</th>
           <td mat-cell *matCellDef="let element"> {{ element.dataTransacao | date : 'dd/MM/y' }}</td>
@@ -70,9 +74,13 @@
           <td mat-cell *matCellDef="let element"> {{ element.descricao }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="tags">
-          <th mat-header-cell *matHeaderCellDef> Tags</th>
-          <td mat-cell *matCellDef="let element"> {{ element.tituloCarteira }} {{ element.tituloCategoria }}</td>
+        <ng-container matColumnDef="carteira">
+          <th mat-header-cell *matHeaderCellDef> Carteira</th>
+          <td mat-cell *matCellDef="let element"> {{ element.tituloCarteira }}</td>
+        </ng-container>
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef> Categoria</th>
+          <td mat-cell *matCellDef="let element"> {{ element.tituloCategoria }}</td>
         </ng-container>
 
         <ng-container matColumnDef="acoes">
@@ -89,8 +97,8 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['data', 'valor', 'descricao', 'tags', 'acoes']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['data', 'valor', 'descricao', 'tags', 'acoes'];"></tr>
+        <tr mat-header-row *matHeaderRowDef="['data', 'valor', 'descricao', 'carteira', 'categoria', 'acoes']"></tr>
+        <tr mat-row *matRowDef="let _; columns: ['data', 'valor', 'descricao', 'carteira', 'categoria', 'acoes'];"></tr>
       </table>
     </div>
   </div>

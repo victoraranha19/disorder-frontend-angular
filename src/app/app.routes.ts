@@ -2,12 +2,17 @@ import { Routes } from '@angular/router';
 import { authGuard } from './services/_guard/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
     loadComponent: () => import('./pages/home/home.component').then((c) => c.HomeComponent),
     children: [
-      { path: '', redirectTo: 'carteiras' },
+      { path: '', redirectTo: 'transacoes', pathMatch: 'full' },
+      {
+        path: 'resumo',
+        loadComponent: () => import('./pages/resumo/resumo.component').then((c) => c.ResumoComponent),
+        canActivate: [authGuard],
+      },
       {
         path: 'carteiras',
         loadComponent: () => import('./pages/carteiras/carteiras.component').then((c) => c.CarteirasComponent),
@@ -27,8 +32,7 @@ export const routes: Routes = [
         path: 'assessoria',
         loadComponent: () => import('./pages/assessoria/assessoria.component').then((c) => c.AssessoriaComponent),
         canActivate: [authGuard],
-      },
-      { path: '**', redirectTo: 'carteiras', pathMatch: 'full' },
+      }
     ],
   },
   { path: 'login', loadComponent: () => import('./pages/login/login.component').then((c) => c.LoginComponent) },
