@@ -30,7 +30,7 @@ export class UsuariosService {
     this.deslogar();
     return this.#httpClient.post<IUsuarioLogado>(`${API_URL_BASE}${this.ROTA_USUARIOS}/login`, usuario).pipe(
       tap((usuarioLogado) => {
-        localStorage.setItem('token', JSON.stringify(usuarioLogado));
+        localStorage.setItem('token', JSON.stringify(usuarioLogado.token));
         void this.#router.navigate([this.#activatedRoute.snapshot.queryParams['returnUrl'] ?? '/']);
       }),
       catchError((err) => {
