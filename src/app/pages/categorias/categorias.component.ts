@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +11,7 @@ import { CategoriasService } from '../../services/categorias.service';
 
 @Component({
   selector: 'app-categorias',
-  imports: [CommonModule, CategoriaComponent, FormsModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatInputModule],
+  imports: [CategoriaComponent, FormsModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatInputModule],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.scss',
 })

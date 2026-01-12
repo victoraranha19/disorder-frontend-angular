@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, OnInit, signal, TemplateRef, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,7 @@ import { ICarteira } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-carteiras',
-  imports: [CommonModule, CarteiraComponent, FormsModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatInputModule],
+  imports: [CarteiraComponent, FormsModule, ReactiveFormsModule, MatDialogModule, MatButtonModule, MatInputModule],
   templateUrl: './carteiras.component.html',
   styleUrl: './carteiras.component.scss',
 })
