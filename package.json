@@ -15,7 +15,7 @@
     "@angular/compiler": "^20.3.15",
     "@angular/core": "^20.3.15",
     "@angular/forms": "^20.3.15",
-    "@angular/material": "^20.2.14",
+    "@angular/material": "^21.0.6",
     "@angular/platform-browser": "^20.3.15",
     "@angular/router": "^20.3.15",
     "@puppeteer/ng-schematics": "^0.7.0",
