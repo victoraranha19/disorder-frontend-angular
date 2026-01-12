@@ -1,46 +1,56 @@
 <mat-drawer-container style="height: 100vh; width: 100vw">
   <mat-drawer mode="side" opened>
     <mat-list style="justify-content: space-between">
-      <mat-nav-list dense>
+      <mat-nav-list>
         <h1 mat-subheader>Disorder App</h1>
-        <div style="padding: 16px 0"><mat-divider /></div>
-        <a mat-list-item [routerLink]="['/', 'carteiras']">
+        <div style="padding: 16px 0">
+          <mat-divider />
+        </div>
+        <a mat-list-item [routerLink]="['/', 'home', 'resumo']">
           <div class="list-item">
             <mat-icon>timeline</mat-icon>
             <span>Resumo</span>
           </div>
         </a>
-        <a mat-list-item [routerLink]="['/', 'carteiras']">
-          <div class="list-item">
-            <mat-icon>wallet</mat-icon>
-            <span>Minhas Carteiras</span>
-          </div>
-        </a>
-        <a mat-list-item [routerLink]="['/', 'gastos']">
+        <a mat-list-item [routerLink]="['/', 'home', 'transacoes']">
           <div class="list-item">
             <mat-icon>payments</mat-icon>
-            <span>Meus Gastos</span>
+            <span>Minhas Transações</span>
           </div>
         </a>
-        <a mat-list-item [routerLink]="['/', 'gastos']">
+        <a mat-list-item [routerLink]="['/', 'home', 'carteiras']">
+          <div class="list-item">
+            <mat-icon>wallet</mat-icon>
+            <span>Carteiras</span>
+          </div>
+        </a>
+        <a mat-list-item [routerLink]="['/', 'home', 'categorias']">
+          <div class="list-item">
+            <mat-icon>bookmark</mat-icon>
+            <span>Categorias</span>
+          </div>
+        </a>
+        <a mat-list-item [routerLink]="['/', 'home', 'assessoria']">
           <div class="list-item">
             <mat-icon>group</mat-icon>
-            <span>Consultoria</span>
+            <span>Assessoria</span>
           </div>
         </a>
       </mat-nav-list>
-      <mat-nav-list dense>
-        <div style="padding: 16px 0"><mat-divider /></div>
-        <a mat-list-item tabindex="0" (click)="toggleTheme()" (keyup.enter)="toggleTheme()" (keyup.space)="toggleTheme()">
+      <mat-nav-list>
+        <div style="padding: 16px 0">
+          <mat-divider />
+        </div>
+        <a mat-list-item href="javascript:void(0)" (click)="toggleTheme()">
           <div class="list-item">
             <mat-icon>bedtime</mat-icon>
             <span>Alterar Tema</span>
           </div>
         </a>
-        <a mat-list-item [routerLink]="['/', 'login']">
+        <a mat-list-item href="javascript:void(0)" (click)="irParaLogin()">
           <div class="list-item">
-            <mat-icon>login</mat-icon>
-            <span>Login</span>
+            <mat-icon>logout</mat-icon>
+            <span>logout</span>
           </div>
         </a>
       </mat-nav-list>

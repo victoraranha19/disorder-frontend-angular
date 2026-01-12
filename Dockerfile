@@ -1,8 +1,13 @@
-FROM node:alpine
+FROM node:latest as angular
 WORKDIR /app
-COPY package.json .
-RUN npm install -g @angular/cli
-RUN npm install
-EXPOSE 4200
+COPY package.json /app
+RUN npm install --silent
 COPY . .
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=angular /app/dist/disorder-frontend-angular/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY mime.types /etc/nginx/mime.types
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

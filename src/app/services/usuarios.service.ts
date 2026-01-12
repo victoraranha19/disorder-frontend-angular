@@ -1,41 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-
+import { IUsuarioLogado, IUsuarioLogin, IUsuarioRegistro } from '../shared/interfaces';
+import { Observable, switchMap, tap } from 'rxjs';
 import { API_URL_BASE } from '../shared/constants';
-import { IUsuario } from '../shared/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class UsuariosService {
   private readonly ROTA_USUARIOS = '/usuarios';
 
   #httpClient = inject(HttpClient);
+  #activatedRoute = inject(ActivatedRoute);
+  #router = inject(Router);
 
-  logar(): void {
-    localStorage.setItem('login', 'sim');
-  }
-  deslogar(): void {
-    localStorage.clear();
-  }
-
-  isUsuarioLogado = (): boolean => !!localStorage.getItem('login');
-
-  listar() {
-    return this.#httpClient.get<IUsuario[]>(`${API_URL_BASE}${this.ROTA_USUARIOS}`);
+  public registrar$(usuario: IUsuarioRegistro): Observable<IUsuarioLogado> {
+    this.deslogar();
+    return this.#httpClient
+      .post(`${API_URL_BASE}${this.ROTA_USUARIOS}/register`, usuario)
+      .pipe(switchMap(() => this.logar$({ login: usuario.login, senha: usuario.senha })));
   }
 
-  usuarioPorId(id: string) {
-    return this.#httpClient.get<IUsuario>(`${API_URL_BASE}${this.ROTA_USUARIOS}/${id}`);
+  public logar$(usuario: IUsuarioLogin): Observable<IUsuarioLogado> {
+    this.deslogar();
+    return this.#httpClient.post<IUsuarioLogado>(`${API_URL_BASE}${this.ROTA_USUARIOS}/login`, usuario).pipe(
+      tap((usuarioLogado) => {
+        localStorage.setItem('token', usuarioLogado.token);
+        void this.#router.navigate([this.#activatedRoute.snapshot.queryParams['returnUrl'] ?? '/']);
+      })
+    );
   }
 
-  criar(usuario: Omit<IUsuario, 'id'>) {
-    return this.#httpClient.post<IUsuario>(`${API_URL_BASE}${this.ROTA_USUARIOS}`, usuario);
+  public deslogar(): void {
+    localStorage.removeItem('token');
   }
 
-  editar(usuario: IUsuario) {
-    return this.#httpClient.put<IUsuario>(`${API_URL_BASE}${this.ROTA_USUARIOS}/${usuario.id}`, usuario);
-  }
-
-  remover(id: number) {
-    return this.#httpClient.delete<null>(`${API_URL_BASE}${this.ROTA_USUARIOS}/${id}`);
+  public verificaUsuarioLogado() {
+    console.log('verificaUsuarioLogado called', !!localStorage.getItem('token')?.length);
+    return !!localStorage.getItem('token')?.length;
   }
 }

@@ -1,14 +1,40 @@
 import { Routes } from '@angular/router';
-
-import { CarteirasComponent } from './pages/carteiras/carteiras.component';
-import { GastosComponent } from './pages/gastos/gastos.component';
-import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './services/_guard/auth.guard';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'carteiras', component: CarteirasComponent, canActivate: [authGuard] },
-  { path: 'gastos', component: GastosComponent, canActivate: [authGuard] },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'home',
+    loadComponent: () => import('./pages/home/home.component').then((c) => c.HomeComponent),
+    children: [
+      { path: '', redirectTo: 'transacoes', pathMatch: 'full' },
+      {
+        path: 'resumo',
+        loadComponent: () => import('./pages/resumo/resumo.component').then((c) => c.ResumoComponent),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'carteiras',
+        loadComponent: () => import('./pages/carteiras/carteiras.component').then((c) => c.CarteirasComponent),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'categorias',
+        loadComponent: () => import('./pages/categorias/categorias.component').then((c) => c.CategoriasComponent),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'transacoes',
+        loadComponent: () => import('./pages/transacoes/transacoes.component').then((c) => c.TransacoesComponent),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'assessoria',
+        loadComponent: () => import('./pages/assessoria/assessoria.component').then((c) => c.AssessoriaComponent),
+        canActivate: [authGuard],
+      }
+    ],
+  },
+  { path: 'login', loadComponent: () => import('./pages/login/login.component').then((c) => c.LoginComponent) },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];

@@ -6,16 +6,30 @@
 //   senha: string;
 //   ativo: boolean;
 // }
+import { ETipoCarteira } from './enums';
+
 export interface IUsuario {
   id: number;
   username: string;
-  password: string;
+  senha: string;
   nomeCompleto: string;
   email: string;
   telefone: string;
   chavePix: string;
   idAcessor?: number;
-  ativo: boolean;
+}
+export interface IUsuarioRegistro {
+  login: string;
+  senha: string;
+  nomeCompleto: string;
+  email: string;
+}
+export interface IUsuarioLogin {
+  login: string;
+  senha: string;
+}
+export interface IUsuarioLogado {
+  token: string;
 }
 
 export interface ICategoria {
@@ -23,33 +37,30 @@ export interface ICategoria {
   titulo: string;
   valorPlanejado: number;
   idUsuario: number;
-  ativo: boolean;
 }
 
 export interface ICarteira {
   id: number;
   titulo: string;
-  contaCorrente: number;
-  contaPoupanca: number;
-  contaInvestimento: number;
   limiteCreditoTotal: number;
   idUsuario: number;
-  ativo: boolean;
 }
 
+export interface ITransacoes {
+  totalPaginas: number;
+  totalTransacoes: number;
+  transacoes: ITransacao[];
+}
 export interface ITransacao {
   id: number;
   descricao: string;
   valor: number;
   dataTransacao: Date;
-  tipo: ETipoTransacao; // 'C' | 'D'
+  tipo: ETipoCarteira;
+  parcelas: number;
   idCategoria?: number;
+  tituloCategoria?: string;
   idCarteira?: number;
+  tituloCarteira?: string;
   idUsuario: number;
-  ativo: boolean;
-}
-
-export enum ETipoTransacao {
-  CREDITO = 'C',
-  DEBITO = 'D',
 }

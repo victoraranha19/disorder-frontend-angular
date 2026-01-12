@@ -3,12 +3,29 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { UsuariosService } from './usuarios.service';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 describe('UsuariosService', () => {
   let service: UsuariosService;
 
+  let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
+  let routerSpy: jasmine.SpyObj<Router>;
+
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [UsuariosService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()] });
+    activatedRouteSpy = jasmine.createSpyObj<ActivatedRoute>('ActivatedRoute', [], { snapshot: mockSnapshot });
+
+    routerSpy = jasmine.createSpyObj<Router>('Router', ['navigate']);
+    routerSpy.navigate.and.resolveTo(true);
+
+    TestBed.configureTestingModule({
+      providers: [
+        UsuariosService,
+        { provide: ActivatedRoute, useValue: activatedRouteSpy },
+        { provide: Router, useValue: routerSpy },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+      ]
+    });
     service = TestBed.inject(UsuariosService);
   });
 
@@ -16,3 +33,7 @@ describe('UsuariosService', () => {
     expect(service).toBeTruthy();
   });
 });
+
+const mockSnapshot: ActivatedRouteSnapshot = {
+  queryParams: { returnUrl: '/home/carteira' }
+} as unknown as ActivatedRouteSnapshot;

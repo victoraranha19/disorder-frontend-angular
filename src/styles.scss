@@ -13,13 +13,6 @@ $my-app-dark-theme: mat3.define-colors(
   )
 );
 
-html {
-  @include mat3.all-component-themes($my-app-light-theme);
-}
-body.dark-theme {
-  @include mat3.all-component-themes($my-app-dark-theme);
-}
-
 html,
 body {
   height: 100%;
@@ -27,4 +20,11 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+  &.theme-dark {
+      @include mat3.all-component-themes($my-app-dark-theme);
+  }
+  &.theme-light {
+      @include mat3.all-component-themes($my-app-light-theme);
+  }
 }

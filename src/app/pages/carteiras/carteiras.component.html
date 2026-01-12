@@ -1,12 +1,12 @@
 <div style="display: flex; flex-direction: column; gap: 16px">
-  <h2>Carteiras</h2>
+  <h2>Alocação em Carteiras</h2>
 
   <button mat-button (click)="abrirModal()">Nova carteira</button>
 
   <div style="display: flex; flex-wrap: wrap; gap: 16px">
-    <ng-container *ngFor="let item of carteiras">
-      <app-carteira [carteira]="item" />
-    </ng-container>
+    @for (item of carteiras(); track item) {
+      <app-carteira [carteira]="item" (editar)="abrirModal(item)" (excluir)="excluirCarteira(item)" />
+    }
   </div>
 </div>
 
@@ -18,36 +18,14 @@
       <div style="display: flex; flex-direction: column">
         <mat-form-field style="width: 100%">
           <mat-label>Nome da Carteira</mat-label>
-          <input matInput placeholder="Digite o nome da carteira" [formControl]="carteiraForm.controls.nomeCarteira" required />
+          <input matInput placeholder="Banco do Brasil" [formControl]="carteiraForm.controls.titulo" required />
         </mat-form-field>
 
         <div style="display: flex; justify-content: space-between; gap: 16px">
           <div style="display: flex; flex-direction: column">
             <mat-form-field>
-              <mat-label>Conta Corrente</mat-label>
-              <input matInput type="number" [formControl]="carteiraForm.controls.contaCorrente" />
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Conta Poupança</mat-label>
-              <input matInput type="number" [formControl]="carteiraForm.controls.contaPoupanca" />
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Conta Investimento</mat-label>
-              <input matInput type="number" [formControl]="carteiraForm.controls.contaInvestimento" />
-            </mat-form-field>
-          </div>
-
-          <div style="display: flex; flex-direction: column">
-            <mat-form-field>
               <mat-label>Limite total de crédito</mat-label>
-              <input matInput type="number" [formControl]="carteiraForm.controls.limiteTotalCredito" />
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Limite disponível</mat-label>
-              <input matInput type="number" [formControl]="carteiraForm.controls.limiteDisponivel" />
+              <input matInput type="number" [formControl]="carteiraForm.controls.limiteCreditoTotal" />
             </mat-form-field>
           </div>
         </div>

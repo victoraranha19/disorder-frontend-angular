@@ -1,0 +1,27 @@
+<mat-card style="width: 300px">
+  <mat-card-header style="align-items: center; justify-content: space-between">
+    <mat-card-title>{{ categoria().titulo }}</mat-card-title>
+    <mat-card-actions style="padding: 0">
+      <button mat-icon-button (click)="editar.emit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="excluir.emit()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="padding: 8px 0">
+      <mat-divider />
+    </div>
+
+    <mat-list>
+      @if (categoria().valorPlanejado) {
+        <mat-list-item>
+          <span matListItemTitle>Valor planejado</span>
+          <span matListItemLine>{{ categoria().valorPlanejado | currency: 'BRL': 'symbol': '1.2-2': 'pt-BR' }}</span>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-card-content>
+</mat-card>

@@ -1,35 +1,27 @@
 <mat-card style="width: 300px">
   <mat-card-header style="align-items: center; justify-content: space-between">
-    <mat-card-title>{{ nomeCarteira() }}</mat-card-title>
+    <mat-card-title>{{ carteira().titulo }}</mat-card-title>
     <mat-card-actions style="padding: 0">
-      <button mat-icon-button (click)="editarCarteira()"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button (click)="removerCarteira()"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button (click)="editar.emit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="excluir.emit()">
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card-header>
   <mat-card-content>
-    <div style="padding: 8px 0"><mat-divider /></div>
+    <div style="padding: 8px 0">
+      <mat-divider />
+    </div>
 
-    <ul>
-      @if (contaCorrente()) {
-        <li>
-          <span>Conta Corrente: {{ contaCorrente() | currency: 'BRL' }}</span>
-        </li>
+    <mat-list>
+      @if (carteira().limiteCreditoTotal) {
+        <mat-list-item>
+          <span matListItemTitle>Limite de Crédito</span>
+          <span matListItemLine>{{ carteira().limiteCreditoTotal | currency: 'BRL' }}</span>
+        </mat-list-item>
       }
-      @if (contaPoupanca()) {
-        <li>
-          <span>Conta Poupança: {{ contaPoupanca() | currency: 'BRL' }}</span>
-        </li>
-      }
-      @if (contaInvestimento()) {
-        <li>
-          <span>Conta Investimento: {{ contaInvestimento() | currency: 'BRL' }}</span>
-        </li>
-      }
-      @if (limiteTotalCredito()) {
-        <li>
-          <span>Limite de Crédito: {{ limiteDisponivel() | currency: 'BRL' }} de {{ limiteTotalCredito() | currency: 'BRL' }} </span>
-        </li>
-      }
-    </ul>
+    </mat-list>
   </mat-card-content>
 </mat-card>

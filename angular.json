@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "disorder-angular-app": {
+    "disorder-frontend-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -38,7 +38,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
+                  "maximumWarning": "600kB",
                   "maximumError": "1MB"
                 },
                 {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "disorder-angular-app:build:production"
+              "buildTarget": "disorder-frontend-angular:build:production"
             },
             "development": {
-              "buildTarget": "disorder-angular-app:build:development"
+              "buildTarget": "disorder-frontend-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -105,12 +105,12 @@
         "e2e": {
           "builder": "@puppeteer/ng-schematics:puppeteer",
           "options": {
-            "devServerTarget": "disorder-angular-app:serve",
+            "devServerTarget": "disorder-frontend-angular:serve",
             "testRunner": "jasmine"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "disorder-angular-app:serve:production"
+              "devServerTarget": "disorder-frontend-angular:serve:production"
             }
           }
         }
@@ -121,6 +121,7 @@
     "schematicCollections": [
       "angular-eslint"
     ],
-    "analytics": false
+    "analytics": "9080a51f-b481-4ca1-9bb4-0c9d684e16b0"
   }
 }
+
