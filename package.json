@@ -41,6 +41,6 @@
     "prettier": "3.7.4",
     "puppeteer": "24.19.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "8.40.0"
+    "typescript-eslint": "8.52.0"
   }
 }
