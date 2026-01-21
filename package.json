@@ -1,6 +1,6 @@
 {
   "name": "disorder-frontend-angular",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
     "lint": "ng lint --fix",
     "start": "npm run lint && ng serve",
