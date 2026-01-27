@@ -3,12 +3,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { IUsuario } from '../../shared/interfaces';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-perfil',
-  imports: [MatCardModule, MatDividerModule, MatListModule, MatIcon, MatIconButton],
+  imports: [MatCardModule, MatDividerModule, MatListModule],
   templateUrl: './perfil.component.html',
   styleUrl: './perfil.component.scss',
 })

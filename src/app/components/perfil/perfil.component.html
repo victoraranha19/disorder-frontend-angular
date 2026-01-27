@@ -1,11 +1,6 @@
 <mat-card style="width: 300px">
-  <mat-card-header>
+  <mat-card-header style="align-items: center; justify-content: space-between">
     <mat-card-title>{{ usuario()?.nomeCompleto ?? '' }}</mat-card-title>
-    <mat-card-actions style="padding: 0">
-      <button mat-icon-button (click)="editar.emit()">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </mat-card-actions>
   </mat-card-header>
   <mat-card-content>
     <div style="padding: 8px 0">
