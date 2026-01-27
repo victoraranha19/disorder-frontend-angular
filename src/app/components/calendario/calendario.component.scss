@@ -1,0 +1,34 @@
+.calendario-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-small {
+  font-weight: 500;
+  font-size: 18px;
+  height: 37.5px;
+}
+.text-regular {
+  font-weight: 600;
+  font-size: 22px;
+  height: 43.75px;
+}
+.text-large {
+  font-weight: 700;
+  font-size: 26px;
+  height: 50px;
+}

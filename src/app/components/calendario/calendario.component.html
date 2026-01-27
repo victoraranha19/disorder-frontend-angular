@@ -1,0 +1,6 @@
+<div [ngStyle]="{width: width() + 'px', height: height() + 'px'}" class="calendario-container">
+  <div class="text" [ngClass]="'text-' + size()">
+    <span [ngStyle]="{color: ofuscado() ? 'white' : 'black'}">{{ text() }}</span>
+  </div>
+  <img [ngSrc]="src()" [width]="width()" [height]="height()" [alt]="'Calendário ' + text()" />
+</div>

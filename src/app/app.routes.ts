@@ -14,21 +14,25 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
+        title: 'Minhas Carteiras',
         path: 'carteiras',
         loadComponent: () => import('./pages/carteiras/carteiras.component').then((c) => c.CarteirasComponent),
         canActivate: [authGuard],
       },
       {
+        title: 'Categorias',
         path: 'categorias',
         loadComponent: () => import('./pages/categorias/categorias.component').then((c) => c.CategoriasComponent),
         canActivate: [authGuard],
       },
       {
+        title: 'Minhas Transações',
         path: 'transacoes',
         loadComponent: () => import('./pages/transacoes/transacoes.component').then((c) => c.TransacoesComponent),
         canActivate: [authGuard],
       },
       {
+        title: 'Assessoria',
         path: 'assessoria',
         loadComponent: () => import('./pages/assessoria/assessoria.component').then((c) => c.AssessoriaComponent),
         canActivate: [authGuard],

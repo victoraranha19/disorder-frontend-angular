@@ -1,5 +1,13 @@
-<div style="display: flex; flex-direction: column; gap: 16px">
-  <h2>Transações de {{ mesSelecionado | date : "MMMM" : "-03:00" : "pt-BR" | titlecase }}</h2>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+  <h2 style="font-size: 32px">
+    Transações de {{ mesSelecionado | date : "MMMM" : "-03:00" : "pt-BR" | titlecase }}
+  </h2>
+
+  <app-calendario-carrossel (mesSelecionado)="mudarMesSelecionado($event)" />
+
+  <div style="padding: 8px 0">
+    <mat-divider />
+  </div>
 
   <div style="display: flex; justify-content: space-around; align-items: start">
     <div style="display: flex; flex-direction: column;">

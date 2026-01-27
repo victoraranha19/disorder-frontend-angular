@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ITransacao, ITransacoes } from '../shared/interfaces';
+import { IRequestTransacaoListagem, ITransacao } from '../shared/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { API_URL_BASE } from '../shared/constants';
 
@@ -10,10 +10,10 @@ export class TransacoesService {
   #httpClient = inject(HttpClient);
 
   listar$(params: IRequestTransacaoListagem, tipoTransacao: 'entradas' | 'saidas') {
-    let parametros = `?pagina=${params.pagina}&itensPorPagina=${params.itensPorPagina}&mesAno=${params.mesAno}`;
+    let parametros = `?mesAno=${params.mesAno}`;
     if (params.idCarteira) parametros = parametros.concat('&idCarteira=' + params.idCarteira);
     if (params.idCategoria) parametros = parametros.concat('&idCategoria=' + params.idCategoria);
-    return this.#httpClient.get<ITransacoes>(`${API_URL_BASE}${this.ROTA_TRANSACOES}/${tipoTransacao}${parametros}`);
+    return this.#httpClient.get<ITransacao[]>(`${API_URL_BASE}${this.ROTA_TRANSACOES}/${tipoTransacao}${parametros}`);
   }
   criar$(transacao: Omit<ITransacao, 'id'>) {
     return this.#httpClient.post<ITransacao>(`${API_URL_BASE}${this.ROTA_TRANSACOES}`, transacao);
@@ -24,12 +24,4 @@ export class TransacoesService {
   remover$(id: number) {
     return this.#httpClient.delete<null>(`${API_URL_BASE}${this.ROTA_TRANSACOES}/${id}`);
   }
-}
-
-interface IRequestTransacaoListagem {
-  pagina: number;
-  itensPorPagina: number;
-  mesAno: string;
-  idCarteira?: number;
-  idCategoria?: number;
 }

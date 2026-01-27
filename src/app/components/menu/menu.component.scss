@@ -3,7 +3,7 @@
 mat-drawer {
   @include mat.sidenav-overrides(
       (
-        container-width: 300px,
+        container-width: 260px,
       )
   );
 }

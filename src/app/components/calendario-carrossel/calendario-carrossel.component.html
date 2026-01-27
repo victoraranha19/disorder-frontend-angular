@@ -1,0 +1,15 @@
+<div style="display: flex; align-items: center; justify-content: center">
+  <button matButton (click)="selectMesAnterior()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  @if (mesAnterior(); as mesAnterior) {
+    <app-calendario size="small" [text]="mesAnterior | mesAno" [ofuscado]="true"/>
+  }
+  <app-calendario size="large" [text]="mesExibido() | mesAno"/>
+  @if (mesPosterior(); as mesPosterior) {
+    <app-calendario size="small" [text]="mesPosterior | mesAno" [ofuscado]="true"/>
+  }
+  <button matButton (click)="selectMesPosterior()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>

@@ -2,7 +2,6 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UsuariosService } from '../usuarios.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('token');
@@ -10,7 +9,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
   const snackBar = inject(MatSnackBar);
-  const usuarioService = inject(UsuariosService);
+  // const usuarioService = inject(UsuariosService);
   req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -20,7 +19,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
           horizontalPosition: 'end',
           verticalPosition: 'top',
         });
-        usuarioService.deslogar(true, true);
       }
       throw error;
     })

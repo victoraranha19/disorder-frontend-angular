@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +16,8 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class LoginComponent {
   abrirMenu = output();
+
+  viewRecuperarSenha = signal(false);
 
   #usuariosService = inject(UsuariosService);
 
@@ -40,5 +42,9 @@ export class LoginComponent {
       nomeCompleto: this.formUsuario.controls.nomeCompleto.value ?? '',
     };
     this.#usuariosService.registrar$(usuario).subscribe();
+  }
+
+  enviarEmailRecuperacao() {
+    this.#usuariosService.recuperarConta$(this.formUsuario.controls.email.value).subscribe(() => this.viewRecuperarSenha.set(false));
   }
 }

@@ -1,21 +1,10 @@
-// export interface IUsuario {
-//   id: number;
-//   nome: string;
-//   email: string;
-//   usuario: string;
-//   senha: string;
-//   ativo: boolean;
-// }
 import { ETipoCarteira } from './enums';
 
 export interface IUsuario {
-  id: number;
   email: string;
-  senha: string;
   nomeCompleto: string;
   telefone: string;
   chavePix: string;
-  idAcessor?: number;
 }
 export interface IUsuarioRegistro {
   senha: string;
@@ -44,11 +33,6 @@ export interface ICarteira {
   idUsuario: number;
 }
 
-export interface ITransacoes {
-  totalPaginas: number;
-  totalTransacoes: number;
-  transacoes: ITransacao[];
-}
 export interface ITransacao {
   id: number;
   descricao: string;
@@ -61,4 +45,10 @@ export interface ITransacao {
   idCarteira?: number;
   tituloCarteira?: string;
   idUsuario: number;
+}
+
+export interface IRequestTransacaoListagem {
+  mesAno: string;
+  idCarteira?: number;
+  idCategoria?: number;
 }

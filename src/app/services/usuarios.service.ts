@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { IUsuarioLogado, IUsuarioLogin, IUsuarioRegistro } from '../shared/interfaces';
+import { IUsuario, IUsuarioLogado, IUsuarioLogin, IUsuarioRegistro } from '../shared/interfaces';
 import { Observable, switchMap, tap } from 'rxjs';
 import { API_URL_BASE } from '../shared/constants';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +32,10 @@ export class UsuariosService {
     );
   }
 
+  public recuperarConta$(email: string | null | undefined): Observable<void> {
+    return this.#httpClient.post<void>(`${API_URL_BASE}${this.ROTA_USUARIOS}/recuperar-conta`, { email });
+  }
+
   public deslogar(irParaLogin = false, manterUrl = false) {
     localStorage.removeItem('token');
     this.isUsuarioLogado.set(false);
@@ -42,5 +46,9 @@ export class UsuariosService {
     const isUsuarioLogado = !!localStorage.getItem('token')?.length;
     this.isUsuarioLogado.set(isUsuarioLogado);
     return isUsuarioLogado;
+  }
+
+  public meuPerfil$(): Observable<IUsuario> {
+    return this.#httpClient.get<IUsuario>(`${API_URL_BASE}${this.ROTA_USUARIOS}/meu-perfil`);
   }
 }

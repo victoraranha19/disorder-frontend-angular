@@ -2,38 +2,53 @@
   <mat-card>
     <mat-card-content>
       <mat-tab-group>
-      <mat-tab label="Entrar">
-        <form>
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input [formControl]="formUsuario.controls.email" matInput placeholder="Digite seu email" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Senha</mat-label>
-            <input [formControl]="formUsuario.controls.senha" matInput type="password" placeholder="Digite sua senha" />
-          </mat-form-field>
-          <button mat-stroked-button type="submit" (click)="logar()">Entrar</button>
-        </form>
-      </mat-tab>
+        @if (viewRecuperarSenha()) {
+          <mat-tab label="Recuperar Senha">
+            <form>
+              <mat-form-field>
+                <mat-label>Endereço de email</mat-label>
+                <input [formControl]="formUsuario.controls.email" matInput placeholder="Digite seu email" />
+              </mat-form-field>
+              <a href="javascript:void(0)" (click)="viewRecuperarSenha.set(false)">Voltar ao login</a>
+              <button mat-stroked-button type="submit" (click)="enviarEmailRecuperacao()">Enviar email</button>
+            </form>
+          </mat-tab>
+        }
+        @else {
+          <mat-tab label="Entrar">
+            <form>
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input [formControl]="formUsuario.controls.email" matInput placeholder="Digite seu email" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Senha</mat-label>
+                <input [formControl]="formUsuario.controls.senha" matInput type="password" placeholder="Digite sua senha" />
+              </mat-form-field>
+              <a href="javascript:void(0)" (click)="viewRecuperarSenha.set(true)">Esqueci minha senha</a>
+              <button mat-stroked-button type="submit" (click)="logar()">Entrar</button>
+            </form>
+          </mat-tab>
 
-      <mat-tab label="Criar Conta">
-        <form>
-          <mat-form-field>
-            <mat-label>Nome completo</mat-label>
-            <input [formControl]="formUsuario.controls.nomeCompleto" matInput placeholder="Digite seu nome completo" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input [formControl]="formUsuario.controls.email" matInput placeholder="Digite seu email" />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Nova Senha</mat-label>
-            <input [formControl]="formUsuario.controls.senha" matInput type="password" placeholder="Digite sua senha" />
-          </mat-form-field>
-          <button mat-stroked-button type="submit" (click)="criarConta()">Criar</button>
-        </form>
-      </mat-tab>
-    </mat-tab-group>
+          <mat-tab label="Criar Conta">
+            <form>
+              <mat-form-field>
+                <mat-label>Nome completo</mat-label>
+                <input [formControl]="formUsuario.controls.nomeCompleto" matInput placeholder="Digite seu nome completo" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input [formControl]="formUsuario.controls.email" matInput placeholder="Digite seu email" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Nova Senha</mat-label>
+                <input [formControl]="formUsuario.controls.senha" matInput type="password" placeholder="Digite sua senha" />
+              </mat-form-field>
+              <button mat-stroked-button type="submit" (click)="criarConta()">Cadastrar</button>
+            </form>
+          </mat-tab>
+        }
+      </mat-tab-group>
     </mat-card-content>
   </mat-card>
 </div>

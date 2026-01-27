@@ -10,11 +10,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { switchMap, tap } from 'rxjs';
 
-import { ICarteira, ICategoria, ITransacao } from '../../shared/interfaces';
+import { ICarteira, ICategoria, IRequestTransacaoListagem, ITransacao } from '../../shared/interfaces';
 import { TransacoesService } from '../../services/transacoes.service';
 import { CarteirasService } from '../../services/carteiras.service';
 import { CategoriasService } from '../../services/categorias.service';
 import { ETipoCarteira } from '../../shared/enums';
+import { MatDividerModule } from '@angular/material/divider';
+import { CalendarioCarrosselComponent } from '../../components/calendario-carrossel/calendario-carrossel.component';
 
 @Component({
   selector: 'app-transacoes',
@@ -26,19 +28,20 @@ import { ETipoCarteira } from '../../shared/enums';
     // Material
     MatButtonModule,
     MatChipsModule,
-    MatDialogModule,
     MatDatepickerModule,
+    MatDividerModule,
+    MatDialogModule,
     MatInputModule,
     MatIconModule,
     MatTableModule,
+    // App
+    CalendarioCarrosselComponent,
   ],
   templateUrl: './transacoes.component.html',
   styleUrl: './transacoes.component.scss',
 })
 export class TransacoesComponent implements OnInit {
   modalTransacao = viewChild.required<TemplateRef<HTMLDivElement>>('templateModalGasto');
-
-  public readonly ETipoTransacao = ETipoCarteira;
 
   #matDialog = inject(MatDialog);
   #transacoesService = inject(TransacoesService);
@@ -48,6 +51,7 @@ export class TransacoesComponent implements OnInit {
   private readonly _hoje = new Date();
   mesSelecionado: Date = new Date(this._hoje);
   #dialogRef?: MatDialogRef<HTMLDivElement>;
+
   receitas = signal<ITransacao[]>([]);
   despesas = signal<ITransacao[]>([]);
   carteirasOptions = signal<ICarteira[]>([]);
@@ -74,6 +78,11 @@ export class TransacoesComponent implements OnInit {
     this.#categoriasService.listar$().subscribe((data) => {
       this.categoriasOptions.set(data);
     });
+  }
+
+  public mudarMesSelecionado(novoMes: Date): void {
+    this.mesSelecionado = novoMes;
+    this._listarTransacoes$(novoMes).subscribe();
   }
 
   public abrirModal(tipoTransacao: 'entrada' | 'saida', transacao?: ITransacao, tipoCarteira: ETipoCarteira = ETipoCarteira.LIMITE_CREDITO): void {
@@ -168,11 +177,20 @@ export class TransacoesComponent implements OnInit {
       .subscribe();
   }
 
-  private _listarTransacoes$() {
-    return this.#transacoesService.listar$({ pagina: 0, itensPorPagina: 20, mesAno: '012026' }, 'entradas').pipe(
-      tap((data) => this.receitas.set(data.transacoes)),
-      switchMap(() => this.#transacoesService.listar$({ pagina: 0, itensPorPagina: 20, mesAno: '012026' }, 'saidas')),
-      tap((data) => this.despesas.set(data.transacoes))
+  private _listarTransacoes$(data: Date = this.mesSelecionado) {
+    const params: IRequestTransacaoListagem = {
+      mesAno: this._getMesAno(data),
+    };
+    return this.#transacoesService.listar$(params, 'entradas').pipe(
+      tap((transacoes) => this.receitas.set(transacoes)),
+      switchMap(() => this.#transacoesService.listar$(params, 'saidas')),
+      tap((transacoes) => this.despesas.set(transacoes))
     );
+  }
+
+  private _getMesAno(date: Date): string {
+    const mes = (date.getMonth() + 1).toString().padStart(2, '0');
+    const ano = date.getFullYear().toString();
+    return `${mes}${ano}`;
   }
 }

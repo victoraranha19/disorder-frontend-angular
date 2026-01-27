@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+button {
+  height: 150px;
+  min-width: 100px;
+  border-radius: 8px;
+
+  mat-icon {
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+    padding: 0;
+    margin: 0;
+  }
+}

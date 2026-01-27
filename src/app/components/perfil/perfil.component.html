@@ -1,0 +1,34 @@
+<mat-card style="width: 300px">
+  <mat-card-header>
+    <mat-card-title>{{ usuario()?.nomeCompleto ?? '' }}</mat-card-title>
+    <mat-card-actions style="padding: 0">
+      <button mat-icon-button (click)="editar.emit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="padding: 8px 0">
+      <mat-divider />
+    </div>
+
+    <mat-list>
+      <mat-list-item>
+        <span matListItemTitle>Email:</span>
+        <span matListItemLine>{{ usuario()?.email ?? '' }}</span>
+      </mat-list-item>
+      @if (usuario()?.telefone?.length) {
+        <mat-list-item>
+          <span matListItemTitle>Telefone</span>
+          <span matListItemLine>{{ usuario()?.telefone }}</span>
+        </mat-list-item>
+      }
+      @if (usuario()?.chavePix?.length) {
+        <mat-list-item>
+          <span matListItemTitle>Chave Pix:</span>
+          <span matListItemLine>{{ usuario()?.chavePix }}</span>
+        </mat-list-item>
+      }
+    </mat-list>
+  </mat-card-content>
+</mat-card>

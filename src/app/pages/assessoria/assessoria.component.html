@@ -1,1 +1,7 @@
-Em construção
+<div style="display: flex; flex-direction: column; gap: 16px">
+  <h2>Asessoria Financeira</h2>
+  @if (meuUsuario(); as meuUsuario) {
+    <app-perfil [usuario]="meuUsuario" tipoPerfil="meu-perfil" (editar)="editarPerfil()" />
+  }
+</div>
+
